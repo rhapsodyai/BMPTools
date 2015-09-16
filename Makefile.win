@@ -1,0 +1,33 @@
+# Project: OpenGL_Bitmap
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe -finput-charset=cp932 -fexec-charset=cp932
+CC   = gcc.exe -finput-charset=cp932 -fexec-charset=cp932
+WINDRES = windres.exe
+RES  = 
+OBJ  = BMPLoader.o Main.o $(RES)
+LINKOBJ  = BMPLoader.o Main.o $(RES)
+LIBS =  -L"lib" -L"C:/Users/mia/Downloads/DxLib_GCC/プロジェクトに追加すべきファイル_GCC(Dev-cpp)用" C:/Dev-Cpp/lib/libglu32.a C:/Dev-Cpp/lib/libglut32.a C:/Dev-Cpp/lib/libopengl32.a  
+INCS =  -I"include"  -I"C:/Users/mia/Downloads/DxLib_GCC/プロジェクトに追加すべきファイル_GCC(Dev-cpp)用" 
+CXXINCS =  -I"lib/gcc/mingw32/3.4.2/include"  -I"include/c++/3.4.2/backward"  -I"include/c++/3.4.2/mingw32"  -I"include/c++/3.4.2"  -I"include"  -I"C:/Users/mia/Downloads/DxLib_GCC/プロジェクトに追加すべきファイル_GCC(Dev-cpp)用" 
+BIN  = OpenGL_Bitmap.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before OpenGL_Bitmap.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "OpenGL_Bitmap.exe" $(LIBS)
+
+BMPLoader.o: BMPLoader.cpp
+	$(CPP) -c BMPLoader.cpp -o BMPLoader.o $(CXXFLAGS)
+
+Main.o: Main.cpp
+	$(CPP) -c Main.cpp -o Main.o $(CXXFLAGS)
