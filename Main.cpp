@@ -4,6 +4,7 @@
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
+#define SLEEP_FACTOR 2000
 
 /*
 Author: Melissa Auclaire
@@ -19,10 +20,28 @@ int WindowPositionX = 100;
 int WindowPositionY = 100;
 int WindowWidth = 640;
 int WindowHeight = 480;
-char WindowTitle[] = "Texture Mapping (3) - BMP File -";
+char WindowTitle[] = "Sprite Animation Example";
 BMP *bmp;
+BMP *bmp2;
+BMP *bmp3;
+BMP *bmp4;
+BMP *bmp5;
+BMP *bmp6;
+BMP *bmp7;
+BMP *bmp8;
+BMP *bmp9;
+BMP *bmp10;
+BMP *bmp11;
+BMP *bmp12;
+BMP *bmp13;
+BMP *bmp14;
+BMP *bmp15;
+BMP *bmp16;
 
 //function prototypes
+void sleep(int);
+void drawImage(BMP* tmpBMP);
+
 void Initialize();
 void Display();
 void Idle();
@@ -60,6 +79,21 @@ int main( int argc, char **argv )
 void Initialize() {
 	//Load texture
 	bmp = new BMP("walkcycle1.bmp");
+	bmp2 = new BMP("walkcycle2.bmp");
+	bmp3 = new BMP("walkcycle3.bmp");
+	bmp4 = new BMP("walkcycle4.bmp");
+	bmp5 = new BMP("walkcycle5.bmp");
+	bmp6 = new BMP("walkcycle6.bmp");
+	bmp7 = new BMP("walkcycle7.bmp");
+	bmp8 = new BMP("walkcycle8.bmp");
+	bmp9 = new BMP("walkcycle9.bmp");
+	bmp10 = new BMP("walkcycle10.bmp");
+	bmp11 = new BMP("walkcycle11.bmp");
+	bmp12 = new BMP("walkcycle12.bmp");
+	bmp13 = new BMP("walkcycle13.bmp");
+	bmp14 = new BMP("walkcycle14.bmp");
+	bmp15 = new BMP("walkcycle15.bmp");
+	bmp16 = new BMP("walkcycle16.bmp");
 
 	glClearColor(0,0,0,0); // moved this line to be in the init function
 	glDisable(GL_DEPTH_TEST);
@@ -84,14 +118,6 @@ void Reshape(int x, int y) {
 }
 
 //Draw window
-void Display() {
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-
-	glEnable(GL_TEXTURE_2D);//Enable Texture
-	glBindTexture( GL_TEXTURE_2D, bmp->texture);
-	glEnable(GL_ALPHA_TEST);//Begin Alpha Test
-	glBegin(GL_POLYGON);
 
 	//Upside down
 	/*
@@ -108,18 +134,27 @@ void Display() {
 	glTexCoord2f(1.0f, 1.0f); glVertex2d(0, 0);
 	glTexCoord2f(1.0f, 0.0f); glVertex2d(0, 480);
 	*/
+void Display() {
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 
-	//Rightside up, Facing Right way
-	glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 480);
-	glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 0);
-	glTexCoord2f(1.0f, 1.0f); glVertex2d(640, 0);
-	glTexCoord2f(1.0f, 0.0f); glVertex2d(640,480);
-	glEnd();
-
-	glDisable(GL_ALPHA_TEST);//End Alpha Test
-	glDisable(GL_TEXTURE_2D);//Disabe Texture
-
-	glutSwapBuffers();
+	//animation sequence
+	drawImage(bmp);
+	drawImage(bmp2);
+	drawImage(bmp3);
+	drawImage(bmp4);
+	drawImage(bmp5);
+	drawImage(bmp6);
+	drawImage(bmp7);
+	drawImage(bmp8);
+	drawImage(bmp9);
+	drawImage(bmp10);
+	drawImage(bmp11);
+	drawImage(bmp12);
+	drawImage(bmp13);
+	drawImage(bmp14);
+	drawImage(bmp15);
+	drawImage(bmp16);
 
 }
 
@@ -149,4 +184,39 @@ void Keyboard(unsigned char key, int x, int y) {
 
 //Input for Special keys
 void Special(int key, int x, int y) {
+}
+
+
+void sleep(int cnt) {
+    int ContinueSwitch = 0;
+    double counter = 0.0;
+    while(true){
+        counter++;
+        if(ContinueSwitch == 1)
+            break;
+        
+        else if(counter == cnt*10000.0)
+            ContinueSwitch = 1;
+    }
+}
+
+void drawImage(BMP* tmpBMP) {
+	glEnable(GL_TEXTURE_2D);//Enable Texture
+	glBindTexture( GL_TEXTURE_2D, tmpBMP->texture);
+	glEnable(GL_ALPHA_TEST);//Begin Alpha Test
+	glBegin(GL_POLYGON);
+
+	//Rightside up, Facing Right way
+	glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 480);
+	glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 0);
+	glTexCoord2f(1.0f, 1.0f); glVertex2d(640, 0);
+	glTexCoord2f(1.0f, 0.0f); glVertex2d(640,480);
+	glEnd();
+
+	glDisable(GL_ALPHA_TEST);//End Alpha Test
+	glDisable(GL_TEXTURE_2D);//Disabe Texture
+
+	glutSwapBuffers();
+
+	sleep(SLEEP_FACTOR);
 }
