@@ -120,11 +120,19 @@ void Display() {
     glTexCoord2f(1.0f, 0.0f); glVertex2d(640, 0);
 */
 
-    //Rightside up
+    //Rightside up, about face
+/*
     glTexCoord2f(0.0f, 0.0f); glVertex2d(640,480);
     glTexCoord2f(0.0f, 1.0f); glVertex2d(640, 0);
     glTexCoord2f(1.0f, 1.0f); glVertex2d(0, 0);
     glTexCoord2f(1.0f, 0.0f); glVertex2d(0, 480);
+*/
+
+    //Rightside up, Facing Right way
+    glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 480);
+    glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 0);
+    glTexCoord2f(1.0f, 1.0f); glVertex2d(640, 0);
+    glTexCoord2f(1.0f, 0.0f); glVertex2d(640,480);
     glEnd();
 
     glDisable(GL_ALPHA_TEST);//End Alpha Test
@@ -221,69 +229,5 @@ void Keyboard(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------------------
 void Special(int key, int x, int y)
 {
-	switch ( key )
-	{
-	case GLUT_KEY_F1:
-		break;
 
-	case GLUT_KEY_F2:
-		break;
-
-	case GLUT_KEY_F3:
-		break;
-
-	case GLUT_KEY_F4:
-		break;
-
-	case GLUT_KEY_F5:
-		break;
-
-	case GLUT_KEY_F6:
-		break;
-
-	case GLUT_KEY_F7:
-		break;
-
-	case GLUT_KEY_F8:
-		break;
-
-	case GLUT_KEY_F9:
-		break;
-
-	case GLUT_KEY_F10:
-		break;
-
-	case GLUT_KEY_F11:
-		break;
-
-	case GLUT_KEY_F12:
-		break;
-
-	case GLUT_KEY_LEFT:
-		break;
-
-	case GLUT_KEY_RIGHT:
-		break;
-
-	case GLUT_KEY_UP:
-		break;
-
-	case GLUT_KEY_DOWN:
-		break;
-
-	case GLUT_KEY_PAGE_UP:
-		break;
-
-	case GLUT_KEY_PAGE_DOWN:
-		break;
-
-	case GLUT_KEY_HOME:
-		break;
-
-	case GLUT_KEY_END:
-		break;
-
-	case GLUT_KEY_INSERT:
-		break;
-	}
 }
