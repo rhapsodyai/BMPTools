@@ -1,35 +1,22 @@
-/***********************************************************************
-　　Main.cpp
-
-　　BMP Texture Mapping
-
-　　Date : Oct 11, 2007
-　　Version : 1.0
-　　Author : Pocol
-　　Memo :
-*************************************************************************/
-
-//
-//　include
-//
 #include <iostream>
 #include <GL/glut.h>
-#include "BMPLoader.h"
+#include "BMP.h"
+
+
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 480
+
 using namespace std;
 
-//
 //　global
-//
 int WindowPositionX = 100;
 int WindowPositionY = 100;
 int WindowWidth = 640;
 int WindowHeight = 480;
 char WindowTitle[] = "Texture Mapping (3) - BMP File -";
-BMPImage texture;
+BMP *bmp;
 
-//
 //　prototype
-//
 void Initialize();
 void Display();
 void Idle();
@@ -74,11 +61,18 @@ int main( int argc, char **argv )
 //----------------------------------------------------------------------------------------------------
 void Initialize()
 {
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glEnable(GL_DEPTH_TEST);
 
 	//　テクスチャのロード
-	texture.Load("nyan.bmp");
+	bmp = new BMP("walkcycle1.bmp");
+
+	glClearColor(0,0,0,0); // moved this line to be in the init function
+        glDisable(GL_DEPTH_TEST);
+    
+        // next four lines are new
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0.0, WINDOW_WIDTH-1, WINDOW_HEIGHT-1, 0, -1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
 
 }
 
@@ -107,34 +101,37 @@ void Reshape(int x, int y)
 //　　Display
 //　　Desc : ウィンドウへの描画
 //---------------------------------------------------------------------------------------------------
-void Display()
-{
-	double size = 0.5;
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void Display() {
 
-	//　テクスチャマッピング有効化
-	glEnable(GL_TEXTURE_2D);
-	//　テクスチャをバインド
-	glBindTexture(GL_TEXTURE_2D, texture.ID);
-	//　色の指定
-	glColor4f(1.0, 1.0, 1.0, 1.0);
-	//　四角形をテクスチャ座標つきで描画
-	glBegin(GL_QUADS);
-	glTexCoord2d(0.0, 0.0);	
-    glVertex3d(-size, -size, 0.0);
-	glTexCoord2d(0.0, 1.0);	
-    glVertex3d(-size, size, 0.0);
-	glTexCoord2d(1.0, 1.0);	
-    glVertex3d(size, size, 0.0);
-	glTexCoord2d(1.0, 0.0);	
-    glVertex3d(size, -size, 0.0);
-	glEnd();
-	//　
-	glBindTexture(GL_TEXTURE_2D, 0);
-	//　テクスチャマッピング無効化
-	glDisable(GL_TEXTURE_2D);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
 
-	glutSwapBuffers();
+
+    glEnable(GL_TEXTURE_2D);//Enable Texture
+    glBindTexture( GL_TEXTURE_2D, bmp->texture);
+    glEnable(GL_ALPHA_TEST);//Begin Alpha Test
+    glBegin(GL_POLYGON);
+
+    //Upside down
+/*
+    glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 0);
+    glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 480);
+    glTexCoord2f(1.0f, 1.0f); glVertex2d(640,480);
+    glTexCoord2f(1.0f, 0.0f); glVertex2d(640, 0);
+*/
+
+    //Rightside up
+    glTexCoord2f(0.0f, 0.0f); glVertex2d(640,480);
+    glTexCoord2f(0.0f, 1.0f); glVertex2d(640, 0);
+    glTexCoord2f(1.0f, 1.0f); glVertex2d(0, 0);
+    glTexCoord2f(1.0f, 0.0f); glVertex2d(0, 480);
+    glEnd();
+
+    glDisable(GL_ALPHA_TEST);//End Alpha Test
+    glDisable(GL_TEXTURE_2D);//Disabe Texture
+
+    glutSwapBuffers();
+
 }
 
 //---------------------------------------------------------------------------------------------------
