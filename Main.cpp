@@ -21,6 +21,8 @@ int WindowPositionY = 100;
 int WindowWidth = 640;
 int WindowHeight = 480;
 char WindowTitle[] = "Sprite Animation Example";
+
+
 BMP *bmp;
 BMP *bmp2;
 BMP *bmp3;
@@ -54,8 +56,7 @@ void Special(int key, int x, int y);
 
 
 //Main entry point
-int main( int argc, char **argv )
-{
+int main( int argc, char **argv ) {
 	glutInit(&argc, argv);
 	glutInitWindowPosition(WindowPositionX, WindowPositionY);
 	glutInitWindowSize(WindowWidth, WindowHeight);
@@ -119,21 +120,22 @@ void Reshape(int x, int y) {
 
 //Draw window
 
-	//Upside down
-	/*
-	glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 0);
-	glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 480);
-	glTexCoord2f(1.0f, 1.0f); glVertex2d(640,480);
-	glTexCoord2f(1.0f, 0.0f); glVertex2d(640, 0);
-	*/
+//Upside down
+/*
+glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 0);
+glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 480);
+glTexCoord2f(1.0f, 1.0f); glVertex2d(640,480);
+glTexCoord2f(1.0f, 0.0f); glVertex2d(640, 0);
+*/
 
-	//Rightside up, about face
-	/*
-	glTexCoord2f(0.0f, 0.0f); glVertex2d(640,480);
-	glTexCoord2f(0.0f, 1.0f); glVertex2d(640, 0);
-	glTexCoord2f(1.0f, 1.0f); glVertex2d(0, 0);
-	glTexCoord2f(1.0f, 0.0f); glVertex2d(0, 480);
-	*/
+//Rightside up, about face
+/*
+glTexCoord2f(0.0f, 0.0f); glVertex2d(640,480);
+glTexCoord2f(0.0f, 1.0f); glVertex2d(640, 0);
+glTexCoord2f(1.0f, 1.0f); glVertex2d(0, 0);
+glTexCoord2f(1.0f, 0.0f); glVertex2d(0, 480);
+*/
+
 void Display() {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -190,7 +192,7 @@ void Special(int key, int x, int y) {
 void sleep(int cnt) {
     int ContinueSwitch = 0;
     double counter = 0.0;
-    while(true){
+    while(true) {
         counter++;
         if(ContinueSwitch == 1)
             break;
