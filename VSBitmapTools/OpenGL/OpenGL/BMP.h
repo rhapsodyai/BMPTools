@@ -1,0 +1,17 @@
+//BMP.h
+#ifndef __BMP_H_INCLUDED //if x.h hasn't been included yet...
+#define __BMP_H_INCLUDED //#define this so the compiler knows it has been included
+
+class BMP {
+public:
+	unsigned long sizeX;  //â°
+	unsigned long sizeY; //èc
+	char *Data;  //âÊëúÉfÅ[É^äiî[
+	bool Load(char *filename);
+	GLuint texture;
+	void TexSet();
+	BMP(char *FileName);
+};
+
+#endif
+
